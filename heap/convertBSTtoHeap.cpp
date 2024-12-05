@@ -101,12 +101,50 @@ void reverseOrderTraversal(Node* root) {
     cout << endl;
 }
 
+void inorder(Node* root, vector<int>& ans){
+	if(root == NULL){
+		return;
+	}
+	
+	inorder(root->left,ans);
+	ans.push_back(root->data);
+	inorder(root->right,ans);
+}
 
+
+void convertBSTtoHeap(Node* root, vector<int>& sortedValues) {
+    if (root == NULL) return;
+
+    queue<Node*> q;
+    q.push(root);
+
+    int index = 0;
+
+    while (!q.empty() && index < sortedValues.size()) {
+        Node* current = q.front();
+        q.pop();
+
+        current->data = sortedValues[index++];
+        if (current->left) {
+            q.push(current->left);
+        }
+        if (current->right) {
+            q.push(current->right);
+        }
+    }
+}
 
 int main(){
 	Node* root = NULL;
 	root = createTree(root);
 	levelOrderTraversal(root);
-	reverseOrderTraversal(root);
+	
+	cout << endl;
+	
+	vector<int> _inorder;
+	inorder(root,_inorder);
+	convertBSTtoHeap(root,_inorder);
+	
+	levelOrderTraversal(root);
 	return 0;
 }

@@ -59,25 +59,55 @@ void levelOrderTraversal(Node* root){
 	}
 }
 
-bool validBst(Node* root, int min,int max){
-	if(root == NULL){
-		return true;
-	}
-	
-	if(root->data <= max && root->data >= min){
-		int left = validBst(root->left,min,root->data);
-		int right = validBst(root->left,root->data,max);
-		return left && right;	
-	}
-	
-	return false;
+void reverseOrderTraversal(Node* root) {
+    if (root == NULL) return;
+
+    queue<Node*> q;
+    stack<Node*> s;
+
+    q.push(root);
+    q.push(NULL); 
+
+    while (!q.empty()) {
+        Node* temp = q.front();
+        q.pop();
+
+        if (temp == NULL) {
+            s.push(NULL); 
+            if (!q.empty()) {
+                q.push(NULL); 
+            }
+        } else {
+            s.push(temp);
+            if (temp->left) {
+                q.push(temp->left);
+            }
+            if (temp->right) {
+                q.push(temp->right);
+            }
+        }
+    }
+
+    while (!s.empty()) {
+        Node* node = s.top();
+        s.pop();
+
+        if (node == NULL) {
+            cout << endl;
+        } else {
+            cout << node->data << " ";
+        }
+    }
+    cout << endl;
 }
+
+boop isHeap(Node* root){
+	
+}
+
 
 int main(){
 	Node* root = NULL;
 	root = createTree(root);
-	levelOrderTraversal(root);
-	cout<<endl;
-	cout << validBst(root,INT_MIN,INT_MAX);
 	return 0;
 }

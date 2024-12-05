@@ -1,6 +1,9 @@
 #include<iostream>
 using namespace std;
 
+#include<iostream>
+using namespace std;
+
 class heap {
     public:
         int arr[100];
@@ -41,7 +44,7 @@ class heap {
 
             if (largest != i) {
                 swap(arr[i], arr[largest]);
-                heapifyDown(largest);  // Recursively heapify the affected subtree
+                heapifyDown(largest);  
             }
         }
 
@@ -54,7 +57,7 @@ class heap {
             arr[1] = arr[size];
             size--;
 
-            heapifyDown(1);  // Heapify the root to restore the heap property
+            heapifyDown(1);  
         }
 
         void print() {
@@ -67,16 +70,21 @@ class heap {
 
 int main() {
     heap h1;
-    h1.insert(54);
-    h1.insert(53);
-    h1.insert(55);
-    h1.insert(52);
-    h1.insert(50);
-    h1.print();
-
-    h1._delete();
-    h1.print();
-
+    
+    int arr[6] = {7,10,4,3,20,15};
+    int k = 2;
+    for(int i = 0; i <= k-1; i++){
+    	h1.insert(arr[i]);
+	}
+	
+	for(int i = k; i < 6; i++){
+		if(arr[i] < h1.arr[1]){
+			h1._delete();
+			h1.insert(arr[i]);
+		}
+	}
+	
+	cout<<"kth min"<<h1.arr[1];
+	
     return 0;
 } 
-
